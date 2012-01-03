@@ -118,10 +118,8 @@ func handler(w http.ResponseWriter, r *http.Request) {
 			} else {
 				thisLink, err := os.Stat(thisFullPath)
 				if err != nil {
-					size = "(invalid)"
-					break
-				}
-				if thisLink.IsDir() {
+					size = "???"
+				} else if thisLink.IsDir() {
 					isDir = true
 					thisLinkInfo, _ := ioutil.ReadDir(thisFullPath)
 					size = fmt.Sprintf("%v items", len(thisLinkInfo))
@@ -148,7 +146,7 @@ func handler(w http.ResponseWriter, r *http.Request) {
 
 func main() {
 	var listenPort string
-	flag.StringVar(&listenPort, "listen", ":8080", "Port to listen on")
+	flag.StringVar(&listenPort, "listen", "8080", "Port to listen on")
 	flag.StringVar(&basePath, "root", "/root/downloads", "Base path to serve files from '/'")
 	flag.Parse()
 
@@ -167,5 +165,5 @@ func main() {
 	http.HandleFunc("/static/", func(w http.ResponseWriter, r *http.Request) {
 		http.ServeFile(w, r, "." + r.URL.Path)
 	})
-	panic(http.ListenAndServe(listenPort, nil))
+	panic(http.ListenAndServe(":" + listenPort, nil))
 }
