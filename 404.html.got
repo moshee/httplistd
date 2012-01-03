@@ -1,0 +1,6 @@
+<!doctype html>
+<meta charset=utf-8>
+<title>{{.}} doesn't exist.</title>
+<link rel=stylesheet href=/static/d.css>
+<h1>You look lost.</h1>
+<p style="color:#444">I would suggest <a href="/">going home</a> and having a look around instead of typing in random URLs.
