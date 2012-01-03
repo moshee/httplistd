@@ -67,6 +67,10 @@ func getParentDir(requestPath string) (parentDir string) {
 	return
 }
 
+func errorNotFound(w http.ResponseWriter, path string) {
+	templateNotFound.Execute(w, path)
+}
+
 func handler(w http.ResponseWriter, r *http.Request) {
 //	if referer, ok := r.Header["Referer"]; ok {
 //		
@@ -76,7 +80,7 @@ func handler(w http.ResponseWriter, r *http.Request) {
 	println(completePath)
 	file, err := os.Stat(completePath)
 	if err != nil {
-		http.NotFound(w, r)
+		errorNotFound(w, requestPath)
 		return
 	}
 
@@ -90,7 +94,7 @@ func handler(w http.ResponseWriter, r *http.Request) {
 		// we don't want to show the actual root, the apparent root will actually be in the given basePath
 		dir, err := ioutil.ReadDir(completePath)
 		if err != nil {
-			http.NotFound(w, r)
+			errorNotFound(w, requestPath)
 			return
 		}
 
@@ -156,6 +160,7 @@ func main() {
 	}
 
 	templateDirListing, _ = template.ParseFiles("dir_listing.html.got")
+	templateNotFound, _ = template.ParseFiles("404.html.got")
 
 	println("Listening on port", listenPort)
 	http.HandleFunc("/", handler)

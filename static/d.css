@@ -19,6 +19,10 @@ h2 {
 	font-weight: 500;
 	padding: 0 0 1em 8px;
 }
+p {
+	color: #444;
+	padding-left: 8px;
+}
 .b {
 	border-style: solid;
 	border-color: #ddd;
