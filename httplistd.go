@@ -149,9 +149,13 @@ func handler(w http.ResponseWriter, r *http.Request) {
 }
 
 func main() {
+	HOME := os.Getenv("HOME")
+	if HOME == "" {
+		HOME = "/root"
+	}
 	var listenPort string
 	flag.StringVar(&listenPort, "listen", "8080", "Port to listen on")
-	flag.StringVar(&basePath, "root", "/root/downloads", "Base path to serve files from '/'")
+	flag.StringVar(&basePath, "root", HOME, "Base path to serve files from '/'")
 	flag.Parse()
 
 	_, err := os.Open(basePath)
