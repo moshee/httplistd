@@ -17,7 +17,7 @@ Use
 	Usage of httplistd:
 	  -listen="8080": Port to listen on
 	  -root="/moshee": Base path to serve files from '/'
-The base path given by the `-root` option must be an absolute path if you use the equals sign (`-root=/home/user/sites/public`). If you must use shorthand, use a space (`-root ~/sites/public`).
+The base path given by the `-root` option must be an absolute path if you use the equals sign (`-root=/home/user/sites/public`). If you must use shorthand, use a space (`-root ~/sites/public`). It defaults to your home directory.
 
 Once I figure out how to fork into the background, run httplistd with screen (`screen -S listd ./httplistd [OPTIONS]`) or jobs (`./httplistd [OPTIONS] &>/dev/null &`).
 
