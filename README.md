@@ -3,7 +3,7 @@ go-httplistd
 
 What is it?
 ---
-A simple and (imo) nice-looking HTTP server that lists and serves files and folders.
+A simple and (imo) nice-looking HTTP server that lists and serves files and folders. Makes use of Go's `net/http` package.
 
 Install
 ---
@@ -21,7 +21,7 @@ The base path given by the `-root` option must be an absolute path if you use th
 
 Once I figure out how to fork into the background, run httplistd with screen (`screen -S listd ./httplistd [OPTIONS]`) or jobs (`./httplistd [OPTIONS] &>/dev/null &`).
 
-For now it's a standalone executable. I may make it a package eventually.
+For now, it's a standalone executable. In the near future I will probably make a package version for my upcoming plugin-oriented web server, `gas`.
 
 Suggestions, comments
 ---
