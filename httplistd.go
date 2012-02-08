@@ -6,7 +6,9 @@ import (
 	"os"
 	"io/ioutil"
 	"fmt"
+	"log"
 	"flag"
+	"strings"
 )
 
 var templateDirListing, templateNotFound *template.Template
@@ -77,7 +79,7 @@ func handler(w http.ResponseWriter, r *http.Request) {
 //	}
 	requestPath := r.URL.Path
 	completePath := basePath + requestPath
-	println(completePath)
+	log.Println(completePath)
 	file, err := os.Stat(completePath)
 	if err != nil {
 		errorNotFound(w, requestPath)
@@ -135,7 +137,7 @@ func handler(w http.ResponseWriter, r *http.Request) {
 			entries[id] = &listingEntry{
 				IsDir:		isDir,
 				IsLink:		isLink,
-				Fullname:	requestPath + this.Name(),
+				Fullname:	strings.Replace(requestPath + this.Name(), " ", "%20", -1),
 				Basename:	this.Name(),
 				Size:		size,
 				Modified:	this.ModTime().Format("02 Jan 2006 15:04"),
@@ -166,7 +168,7 @@ func main() {
 	templateDirListing, _ = template.ParseFiles("dir_listing.html.got")
 	templateNotFound, _ = template.ParseFiles("404.html.got")
 
-	println("Listening on port", listenPort)
+	log.Println("Listening on port", listenPort)
 	http.HandleFunc("/", handler)
 	// for some reason can't get http.FileServer to work properly
 	// this probably isn't the best way to do this - if you have a folder called 'static'
